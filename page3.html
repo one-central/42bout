@@ -3,32 +3,46 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>모바일에서 보기 좋게 조정된 페이지</title>
+<title>미성년자 피해</title>
 <style>
     /* 기본 스타일 정의 */
     body {
         margin: 0;
         font-family: Arial, sans-serif;
-        word-wrap: break-word;
     }
 
-    /* 반응형 이미지 스타일 */
+    /* 이미지 기본 스타일 (모바일) */
     img {
-        max-width: 100%; /* 화면에 맞게 이미지 크기를 조정 */
-        height: auto;    /* 이미지의 비율을 유지하며 크기 조정 */
+        max-width: 100%; /* 모바일에서는 화면을 넘지 않도록 */
+        height: auto;    /* 비율을 유지하며 크기 조정 */
         display: block;
-        margin: 10px auto; /* 이미지 사이에 간격 추가 */
+        margin: 10px auto; /* 이미지 간 여백 */
     }
 
-    /* Word에서 정의한 스타일을 반응형으로 수정 */
+    /* PC 화면에서 이미지 처리 */
+    @media (min-width: 769px) {
+        img {
+            max-width: none; /* PC에서는 오리지널 크기를 유지 */
+            margin: 0 auto; /* 중앙 정렬 */
+            display: block;
+        }
+
+        .WordSection1 {
+            max-width: 800px; /* PC에서는 최대 폭을 설정 */
+            margin: 0 auto; /* 중앙 정렬 */
+            padding: 20px; /* 양옆 여백 추가 */
+        }
+    }
+
+    /* 모바일에서 본문 섹션 */
     .WordSection1 {
         margin: 0 auto;
         padding: 15px;
         max-width: 100%;
-        overflow: hidden; /* 콘텐츠가 넘치지 않도록 설정 */
+        overflow: hidden; /* 넘치는 콘텐츠가 없도록 설정 */
     }
 
-    /* 모바일에서 글자가 깨지지 않도록 기본 글꼴 설정 */
+    /* 반응형 텍스트 크기 */
     p {
         font-size: 1rem;
         line-height: 1.5;
