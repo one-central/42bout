@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>중앙동 3003번지 하나님의 교회 결사 반대</title>
+    <title>중앙동 3003번지 하나님의 교회 결사 반대대</title>
     <style>
         body {
             margin: 0;
@@ -13,14 +13,14 @@
 
         /* 공통 메뉴 스타일 */
         .navbar {
-            background-color: #333;
-            color: white;
+            background-color: #dfdfdf; /* 메뉴 배경 색상 */
+            color: black; /* 글자 색상 */
             z-index: 1000;
             transition: top 0.3s, height 0.3s, left 0.3s;
         }
 
         .navbar a {
-            color: white;
+            color: black; /* 메뉴 글자 색상 */
             padding: 14px 20px;
             text-decoration: none;
             display: block;
@@ -68,53 +68,42 @@
                 transition: top 0.3s, height 0.3s;
             }
 
+            /* 메뉴가 스크롤 되었을 때 남아있을 부분 */
+            .navbar.scrolled {
+                height: 30px; /* 스크롤 시 남아 있는 부분 */
+                overflow: hidden;
+            }
+
+            /* 메뉴 숨김 화살표 */
             .menu-toggle {
-                display: block;
-                cursor: pointer;
+                display: none; /* 처음에는 숨김 */
+                background-color: #dfdfdf;
+                color: black;
+                width: 100%;
+                padding: 0;
+                text-align: center;
                 font-size: 20px;
+                cursor: pointer;
+                position: absolute;
+                bottom: 0;
+                height: 30px;
+            }
+
+            .menu-toggle.collapsed {
+                display: block; /* 스크롤된 상태에서만 표시 */
             }
 
             .menu-toggle.collapsed:after {
-                content: "⬇️"; /* 닫혔을 때 화살표 */
+                content: "⬇️"; /* 메뉴가 닫혔을 때 화살표 */
             }
 
             .menu-toggle.expanded:after {
                 content: ""; /* 열렸을 때 화살표 숨김 */
             }
 
-            .navbar.hidden {
-                top: -200px; /* 모바일에서는 메뉴가 더 높게 올라가도록 */
-            }
-
             .content {
                 margin-top: 220px;
             }
-        }
-
-        /* 메뉴가 숨겨질 때 (화살표 표시) */
-        .menu-toggle.collapsed {
-            display: block;
-            background-color: #333;
-            color: white;
-            width: 100%;
-            padding: 10px 0;
-            text-align: center;
-            font-size: 20px;
-            cursor: pointer;
-            position: absolute;
-            bottom: 0;
-        }
-
-        .menu-toggle.collapsed:after {
-            content: "⬇️"; /* 메뉴가 닫혔을 때 보여지는 화살표 */
-        }
-
-        .menu-toggle.expanded:after {
-            content: ""; /* 메뉴가 열렸을 때는 화살표 숨김 */
-        }
-
-        .navbar.hidden .menu-toggle.collapsed {
-            border-top: 5px solid #555; /* 메뉴 닫힐 때 두껍게 */
         }
 
         /* 맨 위로 이동 버튼 스타일 (모바일에서만 보이도록 설정) */
@@ -126,7 +115,7 @@
             color: white;
             border: none;
             padding: 15px;
-            border-radius: 50%;
+            border-radius: 50%; /* 완전한 원 */
             font-size: 18px;
             cursor: pointer;
             display: none; /* 초기 상태에서는 숨김 */
@@ -175,44 +164,33 @@
             loadContent('main.html');
         });
 
-        // 스크롤 이벤트로 상단 메뉴 처리 (모바일 전용)
+        // 스크롤 이벤트로 메뉴 처리 (모바일 전용)
         let lastScrollTop = 0;
         const navbar = document.getElementById('navbar');
-        const topButton = document.getElementById('topButton');
         const menuToggle = document.getElementById('menuToggle');
 
         window.addEventListener('scroll', function() {
             let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
-            // 스크롤 방향에 따라 메뉴 접기/펼치기 (모바일 전용)
-            if (scrollTop > lastScrollTop) {
-                // 아래로 스크롤 -> 메뉴 숨김
-                navbar.classList.add('hidden');
+            // 스크롤 방향에 따라 메뉴를 접고 화살표 표시
+            if (scrollTop > 100) {
+                // 컨텐츠가 보이기 시작하면 메뉴가 접히고 화살표 표시
+                navbar.classList.add('scrolled');
                 menuToggle.classList.add('collapsed');
-                menuToggle.classList.remove('expanded');
             } else {
-                // 위로 스크롤 -> 메뉴 보임
-                navbar.classList.remove('hidden');
+                // 상단으로 올라가면 메뉴가 다시 펼쳐짐
+                navbar.classList.remove('scrolled');
                 menuToggle.classList.remove('collapsed');
-                menuToggle.classList.add('expanded');
             }
 
             lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
-
-            // 맨 위로 스크롤 시 메뉴 자동 펼침
-            if (scrollTop === 0) {
-                menuToggle.classList.add('expanded');
-                menuToggle.classList.remove('collapsed');
-                navbar.classList.remove('hidden');
-            }
         });
 
         // 메뉴 토글 버튼 클릭 시 펼치기/접기
         menuToggle.addEventListener('click', function() {
             if (menuToggle.classList.contains('collapsed')) {
                 menuToggle.classList.remove('collapsed');
-                menuToggle.classList.add('expanded');
-                navbar.classList.remove('hidden');
+                navbar.classList.remove('scrolled');
             }
         });
 
