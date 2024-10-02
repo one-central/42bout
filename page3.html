@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>미성년자 피해 사례</title>
-    <script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
+    <title>미성년자 사례</title>
     <style>
         body {
             margin: 0;
@@ -20,26 +19,28 @@
 <body>
     <canvas id="pdfViewer"></canvas>
 
-    <script>
-        var url = 'StudentCase.pdf'; // PDF 파일 경로
+    <!-- PDF.js ES6 모듈을 사용하여 PDF 파일 로드 -->
+    <script type="module">
+        import * as pdfjsLib from 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.6.82/pdf.min.mjs';
+
+        const url = 'StudentCase.pdf'; // PDF 파일 경로
 
         // PDF.js 라이브러리를 사용하여 PDF 로드 및 렌더링
-        var pdfjsLib = window['pdfjs-dist/build/pdf'];
-        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://mozilla.github.io/pdf.js/build/pdf.worker.js';
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.6.82/pdf.worker.min.js';
 
-        var loadingTask = pdfjsLib.getDocument(url);
+        const loadingTask = pdfjsLib.getDocument(url);
         loadingTask.promise.then(function(pdf) {
             // 첫 번째 페이지 로드
             pdf.getPage(1).then(function(page) {
-                var scale = 1.0;
-                var viewport = page.getViewport({ scale: scale });
+                const scale = 1.0;
+                const viewport = page.getViewport({ scale: scale });
 
-                var canvas = document.getElementById('pdfViewer');
-                var context = canvas.getContext('2d');
+                const canvas = document.getElementById('pdfViewer');
+                const context = canvas.getContext('2d');
                 canvas.height = viewport.height;
                 canvas.width = viewport.width;
 
-                var renderContext = {
+                const renderContext = {
                     canvasContext: context,
                     viewport: viewport
                 };
