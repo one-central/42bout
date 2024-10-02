@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>중앙동 3003번지 하나님의 교회 결사 반대대</title>
+    <title>중앙동 3003번지 하나님의 교회 결사 반대</title>
     <style>
         body {
             margin: 0;
@@ -90,11 +90,15 @@
             }
 
             .menu-toggle.collapsed {
+                display: none; /* 최초 로딩 시에는 숨김 */
+            }
+
+            .menu-toggle.collapsed.active {
                 display: block; /* 스크롤된 상태에서만 표시 */
             }
 
             .menu-toggle.collapsed:after {
-                content: "⬇️"; /* 메뉴가 닫혔을 때 화살표 */
+                content: "⏷"; /* 메뉴가 닫혔을 때 화살표 */
             }
 
             .menu-toggle.expanded:after {
@@ -144,7 +148,7 @@
     </div>
 
     <!-- 맨 위로 이동 버튼 -->
-    <button class="top-button" id="topButton" onclick="scrollToTop()">▲</button>
+    <button class="top-button" id="topButton" onclick="scrollToTop()">⇑</button>
 
     <script>
         // Fetch API를 사용한 컨텐츠 로드
@@ -176,11 +180,11 @@
             if (scrollTop > 100) {
                 // 컨텐츠가 보이기 시작하면 메뉴가 접히고 화살표 표시
                 navbar.classList.add('scrolled');
-                menuToggle.classList.add('collapsed');
+                menuToggle.classList.add('collapsed', 'active');
             } else {
                 // 상단으로 올라가면 메뉴가 다시 펼쳐짐
                 navbar.classList.remove('scrolled');
-                menuToggle.classList.remove('collapsed');
+                menuToggle.classList.remove('collapsed', 'active');
             }
 
             lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
@@ -189,7 +193,7 @@
         // 메뉴 토글 버튼 클릭 시 펼치기/접기
         menuToggle.addEventListener('click', function() {
             if (menuToggle.classList.contains('collapsed')) {
-                menuToggle.classList.remove('collapsed');
+                menuToggle.classList.remove('collapsed', 'active');
                 navbar.classList.remove('scrolled');
             }
         });
