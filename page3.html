@@ -18,21 +18,23 @@
     </style>
 </head>
 <body>
-<script src="//mozilla.github.io/pdf.js/build/pdf.mjs" type="module"></script>
+
+<canvas id="pdfViewer"></canvas>
 
 <script type="module">
-  // PDF 파일 경로
-  var url = 'https://one-central.github.io/42bout/StudentCase.pdf';
+  // PDF.js 모듈 로드
+  import * as pdfjsLib from 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.6.82/pdf.min.mjs';
 
-  // PDF.js 라이브러리 설정
-  var { pdfjsLib } = globalThis;
-  pdfjsLib.GlobalWorkerOptions.workerSrc = '//mozilla.github.io/pdf.js/build/pdf.worker.mjs';
+  const url = 'https://one-central.github.io/42bout/StudentCase.pdf'; // PDF 파일 경로
+
+  // PDF.js 설정
+  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.6.82/pdf.worker.min.js';
 
   // PDF 문서 불러오기
-  var loadingTask = pdfjsLib.getDocument(url);
-  var currentPage = 1;
-  var pdfDocument = null;
-  var isRendering = false;
+  const loadingTask = pdfjsLib.getDocument(url);
+  let currentPage = 1;
+  let pdfDocument = null;
+  let isRendering = false;
 
   // 페이지 렌더링 함수
   function renderPage(pageNumber) {
@@ -41,23 +43,23 @@
     pdfDocument.getPage(pageNumber).then(function(page) {
       console.log('Page loaded:', pageNumber);
 
-      var scale = 1.5;
-      var viewport = page.getViewport({scale: scale});
+      const scale = 1.5;
+      const viewport = page.getViewport({scale: scale});
 
       // 새 캔버스를 생성하여 페이지 추가
-      var canvas = document.createElement('canvas');
+      const canvas = document.createElement('canvas');
       canvas.classList.add('pdf-page');
-      var context = canvas.getContext('2d');
+      const context = canvas.getContext('2d');
       canvas.height = viewport.height;
       canvas.width = viewport.width;
       document.body.appendChild(canvas);
 
       // PDF 페이지를 캔버스에 렌더링
-      var renderContext = {
+      const renderContext = {
         canvasContext: context,
         viewport: viewport
       };
-      var renderTask = page.render(renderContext);
+      const renderTask = page.render(renderContext);
       renderTask.promise.then(function () {
         console.log('Page rendered:', pageNumber);
         isRendering = false;
