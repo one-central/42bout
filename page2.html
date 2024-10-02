@@ -13,7 +13,7 @@
         word-wrap: break-word;
     }
 
-    /* 반응형 이미지 스타일 */
+    /* 반응형 이미지 스타일 (모바일에서 기본 적용) */
     img {
         max-width: 100%; /* 화면에 맞게 이미지 크기를 조정 */
         height: auto;    /* 이미지 비율을 유지하며 크기 조정 */
@@ -39,6 +39,20 @@
     @media (max-width: 768px) {
         p {
             font-size: 0.9rem;
+        }
+    }
+
+    /* PC 화면에서 이미지 처리 */
+    @media (min-width: 769px) {
+        img {
+            max-width: none; /* PC에서는 오리지널 크기 유지 */
+            margin: 0 auto; /* 이미지가 화면에서 넘칠 경우 양쪽에 여백 추가 */
+        }
+
+        .WordSection1 {
+            max-width: 800px; /* PC에서는 최대 폭을 설정 */
+            margin: 0 auto; /* 콘텐츠를 화면 중앙에 위치 */
+            padding: 20px; /* 여백 추가 */
         }
     }
 </style>
