@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>중앙동 3003번지 하나님의 교회 결사 반대대</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+        }
+
+        /* 상단 메뉴 스타일 */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            z-index: 1000;
+            transition: top 0.3s;
+        }
+
+        .navbar a {
+            color: white;
+            padding: 14px 20px;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .navbar.hidden {
+            top: -60px; /* 메뉴를 숨길 때 위로 올림 */
+        }
+
+        .menu-toggle {
+            display: none;
+        }
+
+        .content {
+            margin-top: 70px;
+            padding: 20px;
+        }
+
+        /* 맨 위로 이동 버튼 스타일 */
+        .top-button {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 50%;
+            font-size: 18px;
+            cursor: pointer;
+            display: none; /* 초기 상태에서는 숨김 */
+        }
+
+        .top-button.show {
+            display: block; /* 스크롤 시 보이게 함 */
+        }
+
+        /* 모바일 화면 스타일 */
+        @media (max-width: 768px) {
+            .navbar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                transition: top 0.3s;
+            }
+
+            .menu-toggle {
+                display: block;
+                cursor: pointer;
+                margin-top: 10px;
+                font-size: 20px;
+            }
+
+            .menu-toggle.collapsed:after {
+                content: "⬇️"; /* 꺽쇠 화살표 */
+            }
+
+            .menu-toggle.expanded:after {
+                content: "⬆️"; /* 펼쳐졌을 때 */
+            }
+
+            .navbar.hidden {
+                top: -200px; /* 모바일에서는 메뉴가 더 높게 올라가도록 */
+            }
+
+            .content {
+                margin-top: 220px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 상단 메뉴 -->
+    <div class="navbar" id="navbar">
+        <div class="menu-toggle collapsed" id="menuToggle"></div>
+        <a href="javascript:void(0)" onclick="loadContent('page1.html')">반대의 요지</a>
+        <a href="javascript:void(0)" onclick="loadContent('page2.html')">하나님의 교회의 실체</a>
+        <a href="javascript:void(0)" onclick="loadContent('page3.html')">자료 링크</a>
+    </div>
+
+    <!-- 컨텐츠 영역 -->
+    <div class="content" id="content">
+        <h2>Welcome</h2>
+<p>중앙동에 하나님의 교회가 들어 오면 우리 아이들이 하나님의 교회에 다니는&nbsp;아이들이 될수 있습니다.<br />
+&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;<br />
+학교와 아파트와 마을에서 아이들과 가족과 이웃이 종교문제의 피해자가 될수 있습니다.<br />
+&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;<br />
+해결이 어려운 문제여서,</p>
+
+<p>나서기 힘든 문제여서,</p>
+
+<p>포기하고 지켜만 보다 그대로 당할것인지,&nbsp;</p>
+
+<p>주민들의 목소리라도 모아볼것인지,&nbsp;</p>
+
+<p>더이상 늦기전에 선택해야할 순간이 왔습니다.<br />
+&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;<br />
+답변을 기다리고 공사가 진행되면&nbsp;더욱 늦습니다.<br />
+&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;<br />
+하나님의 교회에 반대하시는 많은 주민들과&nbsp;의견을 교류하고자 단톡방을 만들었습니다.<br />
+&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;<br />
+아이들 앞에서 사회 문제를&nbsp;외면하는 어른이 되어야 하는지 많은 생각이 드는 요즘입니다.</p>
+    </div>
+
+    <!-- 맨 위로 이동 버튼 -->
+    <button class="top-button" id="topButton" onclick="scrollToTop()">▲</button>
+
+    <script>
+        // Fetch API를 사용한 컨텐츠 로드
+        function loadContent(page) {
+            fetch(page)
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('content').innerHTML = data;
+                })
+                .catch(error => {
+                    document.getElementById('content').innerHTML = "<p>컨텐츠를 로드하는 중 오류가 발생했습니다.</p>";
+                });
+        }
+
+        // 스크롤 이벤트로 상단 메뉴 및 맨 위로 이동 버튼 처리
+        let lastScrollTop = 0;
+        const navbar = document.getElementById('navbar');
+        const topButton = document.getElementById('topButton');
+        const menuToggle = document.getElementById('menuToggle');
+
+        window.addEventListener('scroll', function() {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+            // 스크롤 방향에 따라 메뉴 접기/펼치기
+            if (scrollTop > lastScrollTop) {
+                // 아래로 스크롤 -> 메뉴 숨김
+                navbar.classList.add('hidden');
+            } else {
+                // 위로 스크롤 -> 메뉴 보임
+                navbar.classList.remove('hidden');
+            }
+
+            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+
+            // 맨 위로 버튼 표시 여부
+            if (scrollTop > 300) {
+                topButton.classList.add('show');
+            } else {
+                topButton.classList.remove('show');
+            }
+
+            // 맨 위로 스크롤 시 메뉴 자동 펼침
+            if (scrollTop === 0) {
+                menuToggle.classList.add('expanded');
+                menuToggle.classList.remove('collapsed');
+                navbar.classList.remove('hidden');
+            }
+        });
+
+        // 메뉴 토글 버튼 클릭 시 펼치기/접기
+        menuToggle.addEventListener('click', function() {
+            if (menuToggle.classList.contains('collapsed')) {
+                menuToggle.classList.remove('collapsed');
+                menuToggle.classList.add('expanded');
+                navbar.classList.remove('hidden');
+            } else {
+                menuToggle.classList.remove('expanded');
+                menuToggle.classList.add('collapsed');
+                navbar.classList.add('hidden');
+            }
+        });
+
+        // 맨 위로 이동 함수
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
