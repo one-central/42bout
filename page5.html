@@ -1,10 +1,41 @@
-<title></title>
-<figure class="table" style="width:77.11%;">
-    <table class="ck-table-resized" style="border-color:hsl(0, 0%, 30%);border-style:solid;">
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>반응형 테이블</title>
+<style>
+    /* 기본 테이블 스타일 */
+    table {
+        width: 100%; /* 모바일에서는 100% */
+        border-collapse: collapse; /* 셀 사이 간격 제거 */
+        border: 1px solid gray; /* 테두리 회색 solid */
+    }
+
+    /* 테이블 컬럼의 셀에 대한 테두리 적용 */
+    td {
+        border: 1px solid gray; /* 셀 테두리 회색 solid */
+        padding: 8px; /* 셀 패딩 */
+        text-align: left; /* 텍스트 왼쪽 정렬 */
+    }
+
+    /* PC 화면에서 테이블 최대 너비 700px로 제한 */
+    @media (min-width: 769px) {
+        table {
+            max-width: 700px; /* PC에서 최대 700px로 제한 */
+            margin: 0 auto; /* 중앙 정렬 */
+        }
+    }
+</style>
+</head>
+<body>
+
+<figure class="table">
+    <table>
         <colgroup>
-            <col style="width:3.19%;">
-            <col style="width:8.11%;">
-            <col style="width:88.7%;">
+            <col style="width: 5%;">
+            <col style="width: 10%;">
+            <col style="width: 85%;">
         </colgroup>
         <tbody>
             <tr>
@@ -50,3 +81,6 @@
         </tbody>
     </table>
 </figure>
+
+</body>
+</html>
