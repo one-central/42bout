@@ -21,7 +21,7 @@
 
         .navbar a {
             color: black; /* 메뉴 글자 색상 */
-            padding: 4px 16px;
+            padding: 3px 16px;
             text-decoration: none;
             display: block;
             font-family: '맑은 고딕', sans-serif; /* 폰트 설정 */
@@ -42,7 +42,6 @@
             padding: 20px 20px 20px 20px; /* 상(top) 20px, 우(right) 3px, 하(bottom) 20px, 좌(left) 3px */
             transition: margin-left 0.3s;
         }
-
 
         /* PC 화면에서는 왼쪽 메뉴로 변경 */
         @media (min-width: 769px) {
@@ -121,7 +120,7 @@
             }
 
             .content {
-                margin-top: 190px;
+                margin-top: 210px;
             }
         }
 
@@ -156,8 +155,9 @@
         <a href="javascript:void(0)" onclick="loadContent('page3.html')" data-text="미성년자 피해 사례">미성년자 피해 사례</a>
         <a href="javascript:void(0)" onclick="loadContent('page4.html')" data-text="하나님의교회의 과거와 현재">하나님의교회의 과거와 현재</a>
         <a href="javascript:void(0)" onclick="loadContent('page5.html')" data-text="원본 자료 링크">원본 자료 링크</a>
+        <a href="javascript:void(0)" onclick="loadContent('page6.html')" data-text="국민권익위 민원">국민권익위 민원</a>
         <a href="https://one-central.github.io/sms" target="_blank" data-text="성남시 문자 민원">성남시 문자 민원</a>
-
+        
         <div class="menu-toggle collapsed" id="menuToggle"></div>
     </div>
 
@@ -176,10 +176,25 @@
                 .then(response => response.text())
                 .then(data => {
                     document.getElementById('content').innerHTML = data;
+                    executeScripts(); // 스크립트를 실행
                 })
                 .catch(error => {
                     document.getElementById('content').innerHTML = "<p>컨텐츠를 로드하는 중 오류가 발생했습니다.</p>";
                 });
+        }
+
+        // 스크립트 실행 함수
+        function executeScripts() {
+            const scripts = document.getElementById('content').getElementsByTagName('script');
+            for (let i = 0; i < scripts.length; i++) {
+                const newScript = document.createElement('script');
+                if (scripts[i].src) {
+                    newScript.src = scripts[i].src; // 외부 스크립트일 경우
+                } else {
+                    newScript.innerHTML = scripts[i].innerHTML; // 내부 스크립트일 경우
+                }
+                document.body.appendChild(newScript); // 스크립트 실행
+            }
         }
 
         // 기본으로 main.html을 로드
