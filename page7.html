@@ -91,6 +91,22 @@
         .download-button:hover {
             background-color: #0056b3;
         }
+
+        .hidden-link {
+            display: none;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .hidden-link a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .hidden-link a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -110,7 +126,7 @@
     </div>
 
     <button class="copy-button" onclick="copyContent()">내용 복사</button>
-<textarea id="copyBox" readonly>  중앙동 3003번지에 성남시 중원구 건축과에서 허가한 하나님의교회세계복음선교협회(이하 “하나님의교회” 라 칭함)의 건축물에 대한 건축 허가는 公益을 현저하게 害하고, 헌법 제37조에 규정된 公共福利를 심각하게 훼손하는 건축 허가입니다. 
+    <textarea id="copyBox" readonly>  중앙동 3003번지에 성남시 중원구 건축과에서 허가한 하나님의교회세계복음선교협회(이하 “하나님의교회” 라 칭함)의 건축물에 대한 건축 허가는 公益을 현저하게 害하고, 헌법 제37조에 규정된 公共福利를 심각하게 훼손하는 건축 허가입니다. 
         
  중앙동 3003번지의 하나님의교회 건축 허가는 대한민국헌법에 의해 보장받는, 중앙동 주민들의 교육을 받을 권리, 재산권, 환경권, 건강권, 종교의 자유를 침해합니다. 해당 건축 허가는, 중앙동 5,700여 세대, 15,000여 명에 이르는 주민들의 삶에 부정적인 영향을 미치면서, 지역사회의 지속가능한 발전을 저해하고, 극심한 지역 사회 갈등을 일으켜, 제반 사회 비용이 기하급수적으로 증가하게 만들고, 막대한 사회 경제적 손실을 일으키는, 헌법 제37조에서 규정한 公共福利를 심각하게 침해하는 건축 허가입니다. 아울러, 건축법 제1조에서 규정하고 있는 공공복리 증진이라는 법의 목적에도 부합하지 못하는 건축 허가라 할 수 있겠습니다.
     
@@ -128,7 +144,11 @@
 </textarea>
 
     <div class="file-download">
-        <a href="example.pdf" class="download-button" download="example.pdf">첨부파일 다운로드</a>
+        <a href="https://one-central.github.io/42bout/no42b.pdf" class="download-button" download="no42b.pdf">첨부파일 다운로드</a>
+    </div>
+
+    <div class="hidden-link" id="hiddenLink">
+        <a href="https://www.epeople.go.kr/nep/pttn/negativePttn/negativePttnRqst.paid" target="_blank">소극행정 민원 접수 페이지로 이동</a>
     </div>
 </div>
 
@@ -164,7 +184,16 @@
         const copyBox = document.getElementById('copyBox');
         copyBox.select();
         document.execCommand('copy');
-        alert('내용이 복사되었습니다.');
+        alertMessage();
+    }
+
+    function alertMessage() {
+        const alertBox = document.getElementById("hiddenLink");
+        alertBox.style.display = 'block';
+
+        setTimeout(() => {
+            alertBox.style.display = 'none';
+        }, 5000);
     }
 </script>
 
