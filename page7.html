@@ -43,7 +43,22 @@
             font-size: 14px;
         }
 
-        .copy-button {
+        .row .copy-button {
+            flex: 0;
+            margin-left: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 6px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .row .copy-button:hover {
+            background-color: #0056b3;
+        }
+
+        .main-copy-button {
             background-color: #007bff;
             color: white;
             border: none;
@@ -53,7 +68,7 @@
             margin: 20px 0;
         }
 
-        .copy-button:hover {
+        .main-copy-button:hover {
             background-color: #0056b3;
         }
 
@@ -77,7 +92,7 @@
             margin-top: 20px;
         }
 
-        .download-button {
+        .download-button, .open-link-button {
             background-color: #007bff;
             color: white;
             border: none;
@@ -86,26 +101,11 @@
             cursor: pointer;
             text-decoration: none;
             display: inline-block;
+            margin-right: 10px;
         }
 
-        .download-button:hover {
+        .download-button:hover, .open-link-button:hover {
             background-color: #0056b3;
-        }
-
-        .hidden-link {
-            display: none;
-            margin-top: 20px;
-            text-align: center;
-        }
-
-        .hidden-link a {
-            color: #007bff;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        .hidden-link a:hover {
-            text-decoration: underline;
         }
     </style>
 </head>
@@ -115,17 +115,20 @@
     <div class="row">
         <label for="officialName">피신고인 이름:</label>
         <input type="text" id="officialName" value="고성식">
+        <button class="copy-button" onclick="copyToClipboard('officialName')">복사</button>
     </div>
     <div class="row">
         <label for="workplace">근무처(상호명):</label>
         <input type="text" id="workplace" value="성남시 중원구 건축과">
+        <button class="copy-button" onclick="copyToClipboard('workplace')">복사</button>
     </div>
     <div class="row">
         <label for="title">제목:</label>
         <input type="text" id="title" value="중앙동 3003번지 유해 유사 종교 건축 중단 및 허가 취소에 대한 소극 행정 신고">
+        <button class="copy-button" onclick="copyToClipboard('title')">복사</button>
     </div>
 
-    <button class="copy-button" onclick="copyContent()">내용 복사</button>
+    <button class="main-copy-button" onclick="copyContent()">내용 복사</button>
     <textarea id="copyBox" readonly>  중앙동 3003번지에 성남시 중원구 건축과에서 허가한 하나님의교회세계복음선교협회(이하 “하나님의교회” 라 칭함)의 건축물에 대한 건축 허가는 公益을 현저하게 害하고, 헌법 제37조에 규정된 公共福利를 심각하게 훼손하는 건축 허가입니다. 
         
  중앙동 3003번지의 하나님의교회 건축 허가는 대한민국헌법에 의해 보장받는, 중앙동 주민들의 교육을 받을 권리, 재산권, 환경권, 건강권, 종교의 자유를 침해합니다. 해당 건축 허가는, 중앙동 5,700여 세대, 15,000여 명에 이르는 주민들의 삶에 부정적인 영향을 미치면서, 지역사회의 지속가능한 발전을 저해하고, 극심한 지역 사회 갈등을 일으켜, 제반 사회 비용이 기하급수적으로 증가하게 만들고, 막대한 사회 경제적 손실을 일으키는, 헌법 제37조에서 규정한 公共福利를 심각하게 침해하는 건축 허가입니다. 아울러, 건축법 제1조에서 규정하고 있는 공공복리 증진이라는 법의 목적에도 부합하지 못하는 건축 허가라 할 수 있겠습니다.
@@ -145,10 +148,7 @@
 
     <div class="file-download">
         <a href="https://one-central.github.io/42bout/42bcityseongnam.pdf" class="download-button" download="42bcityseongnam.pdf">첨부파일 다운로드</a>
-    </div>
-
-    <div class="hidden-link" id="hiddenLink">
-        <a href="https://www.epeople.go.kr/nep/pttn/negativePttn/negativePttnRqst.paid" target="_blank">소극행정 민원 접수 페이지로 이동</a>
+        <a href="https://www.epeople.go.kr/nep/pttn/negativePttn/negativePttnRqst.paid" class="open-link-button" target="_blank">소극행정신고 접속하기</a>
     </div>
 </div>
 
@@ -156,49 +156,23 @@
     // 입력란 복사 기능
     function copyToClipboard(id) {
         const input = document.getElementById(id);
-        input.select();
-        document.execCommand('copy');
-        alert(`${id}의 내용이 복사되었습니다.`);
+        navigator.clipboard.writeText(input.value).then(() => {
+            alert(`${id}의 내용이 복사되었습니다.`);
+        }).catch(err => {
+            alert('복사 실패: ' + err);
+        });
     }
-
-    document.getElementById('officialName').addEventListener('dblclick', () => copyToClipboard('officialName'));
-    document.getElementById('officialName').addEventListener('touchstart', (e) => {
-        e.preventDefault();
-        copyToClipboard('officialName');
-    });
-
-    document.getElementById('workplace').addEventListener('dblclick', () => copyToClipboard('workplace'));
-    document.getElementById('workplace').addEventListener('touchstart', (e) => {
-        e.preventDefault();
-        copyToClipboard('workplace');
-    });
-
-    document.getElementById('title').addEventListener('dblclick', () => copyToClipboard('title'));
-    document.getElementById('title').addEventListener('touchstart', (e) => {
-        e.preventDefault();
-        copyToClipboard('title');
-    });
 
     // textarea 복사 기능
     function copyContent() {
         const copyBox = document.getElementById('copyBox');
-        copyBox.select();
-        document.execCommand('copy');
-        alertMessage();
-    }
-
-    function alertMessage() {
-        const alertBox = document.getElementById("hiddenLink");
-        alertBox.style.display = 'block';
-
-        setTimeout(() => {
-            alertBox.style.display = 'none';
-        }, 5000);
+        navigator.clipboard.writeText(copyBox.value).then(() => {
+            alert('내용이 복사되었습니다.');
+        }).catch(err => {
+            alert('복사 실패: ' + err);
+        });
     }
 </script>
-    <br>
-    <center>
-<a href="https://hits.sh/one-central.github.io/42bout/page7.html/"><img alt="Hits" src="https://hits.sh/one-central.github.io/42bout/page7.html.svg?color=9f9f9f"/></a>
-        </center>
+
 </body>
 </html>
